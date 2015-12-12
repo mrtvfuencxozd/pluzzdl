@@ -11,7 +11,10 @@
 #
 
 import base64
-import BeautifulSoup
+try:
+	from bs4 import BeautifulSoup
+except ImportError as e:
+	import BeautifulSoup
 import binascii
 import datetime
 import hashlib
