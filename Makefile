@@ -17,15 +17,16 @@ PLUZZDL_VERSION = $(shell grep '__version__ = ".*"' src/main.py | cut -d '"' -f 
 # Nom du repertoire
 PLUZZDL_REPERTOIRE = pluzzdl-$(PLUZZDL_VERSION)
 
+pluzzdl.1.gz: pluzzdl.1
+	# Creer manpage
+	gzip -c pluzzdl.1 > pluzzdl.1.gz
 
 # Compilation
-build :
+build : pluzzdl.1.gz
 	# ByteCode
 	@$(PYTHON_VERSION) -c "import compileall ; compileall.compile_dir( 'src' )"
 	# Modifie le lanceur
 	sed -i 's|__DATADIR__|$(DESTDIR)$(DATADIR)|g' pluzzdl.sh
-	# Creer manpage
-	gzip pluzzdl.1
 
 # Installation
 install :
