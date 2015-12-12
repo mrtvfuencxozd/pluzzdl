@@ -294,9 +294,12 @@ class PluzzDLM3U8( object ):
 				os.remove( self.nomFichier )
 				logger.info( "Fin !" )
 			else:
-				logger.warning( "Problème lors de la création du MKV avec FFmpeg ; le fichier %s est néanmoins disponible" % ( self.nomFichier ) )
+				os.remove(self.nomFichierFinal)
+				logger.warning( u"Problème lors de la création du MKV avec FFmpeg ; le fichier %s est néanmoins disponible" % ( self.nomFichier ) )
 		except:
-			raise PluzzDLException( "Impossible de créer la vidéo finale" )
+			os.remove(self.nomFichierFinal)
+			logger.warning( u"Problème lors de la création du MKV avec FFmpeg ; le fichier %s est néanmoins disponible" % ( self.nomFichier ) )
+			# raise PluzzDLException( "Impossible de créer la vidéo finale " )
 
 	def telecharger( self ):
 		# Recupere le fichier master.m3u8
